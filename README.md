@@ -1,2 +1,2 @@
 # pyta
- Educational project
+ Educational project. 

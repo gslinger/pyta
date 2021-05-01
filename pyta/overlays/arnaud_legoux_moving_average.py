@@ -2,7 +2,7 @@ from pandas import Series
 from numpy import nan as NaN, exp
 
 
-def alma(x: Series, n: int = 9, offset: float = 0.85, sigma: float = 6.0) -> Series:
+def arnaud_legoux_moving_average(x: Series, n: int = 9, offset: float = 0.85, sigma: float = 6.0) -> Series:
     # source: https://www.tradingview.com/pine-script-reference/#fun_alma
     m: float = offset * (n - 1)
     s: float = n / sigma
