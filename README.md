@@ -1,0 +1,2 @@
+# pyta
+ Educational project
