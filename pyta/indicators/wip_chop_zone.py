@@ -5,7 +5,7 @@ from pyta.helper import highest, lowest, hlc3
 from pyta.overlays.exponential_moving_average import exponential_moving_average as ema
 
 
-# TODO
+# TODO incomplete
 def chop_zone(h: pd.Series, l: pd.Series, c: pd.Series, n: int = 30, n_ema: int = 34):
     period_high = highest(h, n)
     period_low = lowest(l, n)
