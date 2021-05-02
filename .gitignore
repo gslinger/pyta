@@ -114,3 +114,4 @@ dmypy.json
 .pyre/
 *.xml
 .idea/pyta.iml
+test.csv

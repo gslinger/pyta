@@ -28,6 +28,10 @@ def ma(x: pd.Series, ma_type: str, **kwargs) -> pd.Series:
     return fnc_map[ma_type](x, **kwargs)
 
 
+def hlc3(h: pd.Series, l: pd.Series, c: pd.Series) -> pd.Series:
+    return (h + l + c) / 3
+
+
 def mfm(h: pd.Series, l: pd.Series, c: pd.Series) -> pd.Series:
     # source: https://school.stockcharts.com/doku.php?id=technical_indicators:accumulation_distribution_line
     mfm_: pd.Series = ((c - l) - (h - c)) / (h - l)
