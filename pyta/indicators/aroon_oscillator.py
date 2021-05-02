@@ -1,15 +1,14 @@
 import pandas as pd
 #
-from pyta.indicators.aroon_down import aroon_down
-from pyta.indicators.aroon_up import aroon_up
+from pyta.indicators.aroon import aroon_down, aroon_up
 
 
-def aroon_osc(h: pd.Series, l: pd.Series, n: int = 14) -> pd.Series:
+def aroon_oscillator(h: pd.Series, l: pd.Series, n: int = 14) -> pd.Series:
     aroon_osc_: pd.Series = aroon_up(h, n) - aroon_down(l, n)
     return aroon_osc_
 
 
-aroon_osc.__doc__ = """Aroon Oscillator
+aroon_oscillator.__doc__ = """Aroon Oscillator
 
 Measures the difference between Aroon up and Aroon down. 
 

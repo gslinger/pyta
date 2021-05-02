@@ -5,14 +5,14 @@ from pyta.overlays.exponential_moving_average import exponential_moving_average 
 
 
 # TODO need to set up ma() properly..
-def apo(price: pd.Series, n_fast: int = 10, n_slow: int = 20, ma_type: str = 'ema', **kwargs) -> pd.Series:
+def absolute_price_oscillator(price: pd.Series, n_fast: int = 10, n_slow: int = 20, ma_type: str = 'ema', **kwargs) -> pd.Series:
     fast_ema: pd.Series = ema(price, n_fast)
     slow_ema: pd.Series = ema(price, n_slow)
     apo_: pd.Series = fast_ema - slow_ema
     return fast_ema - slow_ema
 
 
-apo.__doc__ = """Absolute Price Oscillator (APO)
+absolute_price_oscillator.__doc__ = """Absolute Price Oscillator (APO)
 
 Displays the difference between two moving averages, typically EMA. 
 
