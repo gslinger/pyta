@@ -1,5 +1,6 @@
 import time
 from functools import wraps
+from typing import Union
 
 
 def timer(func):
@@ -13,8 +14,16 @@ def timer(func):
     return wrapper
 
 
-def verify_series(series: list, length: int) -> bool:
+def verify_series(series: list, length_min: int) -> None:
     for series_ in series:
-        if series_ is None or len(series_) < length:
-            return False
-    return True
+        length_act: int = len(series_)
+        if length_act < length_min:
+            raise NotEnoughData(length_min, length_act)
+
+
+class NotEnoughData(Exception):
+    def __init__(self, n_min: int, n_act: int) -> None:
+        err_message = f"The series is not long enough. Minimum : {n_min}. Actual: {n_act}"
+
+        super().__init__(err_message)
+
