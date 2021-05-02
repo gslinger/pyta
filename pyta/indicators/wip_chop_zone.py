@@ -1,14 +1,14 @@
 import numpy as np
 import pandas as pd
 #
-from pyta.helper import max_period, min_period, hlc3
+from pyta.helper import highest, lowest, hlc3
 from pyta.overlays.exponential_moving_average import exponential_moving_average as ema
 
 
 # TODO
 def chop_zone(h: pd.Series, l: pd.Series, c: pd.Series, n: int = 30, n_ema: int = 34):
-    period_high = max_period(h, n)
-    period_low = min_period(l, n)
+    period_high = highest(h, n)
+    period_low = lowest(l, n)
     avg = hlc3(h, l, c)
     range_ = 25 / (period_high - period_low) * period_low
     ema_ = ema(c, n)

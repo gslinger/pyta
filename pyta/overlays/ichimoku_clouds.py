@@ -1,18 +1,18 @@
 import pandas as pd
 #
-from pyta.helper import min_period, max_period
+from pyta.helper import lowest, highest
 # TODO docstring
 
 
 # Tenkan-sen (Conversion Line): (9-period high + 9-period low)/2))
 def tenkan_sen(h: pd.Series, l: pd.Series, n=9) -> pd.Series:
-    tenkansen: pd.Series = (max_period(h, n) + min_period(l, n)) / 2
+    tenkansen: pd.Series = (highest(h, n) + lowest(l, n)) / 2
     return tenkansen
 
 
 # Kijun-sen (Base Line): (26-period high + 26-period low)/2))
 def kijun_sen(h: pd.Series, l: pd.Series, n=26) -> pd.Series:
-    kijunsen: pd.Series = (max_period(h, n) + min_period(l, n)) / 2
+    kijunsen: pd.Series = (highest(h, n) + lowest(l, n)) / 2
     return kijunsen
 
 
@@ -26,7 +26,7 @@ def senkou_span_a(h: pd.Series, l: pd.Series, n_conv=9, n_base=26) -> pd.Series:
 
 # Senkou Span B (Leading Span B): (52-period high + 52-period low)/2))
 def senkou_span_b(h: pd.Series, l: pd.Series, n=52) -> pd.Series:
-    senkouspanb: pd.Series = (max_period(h, n) + min_period(l, n)) / 2
+    senkouspanb: pd.Series = (highest(h, n) + lowest(l, n)) / 2
     return senkouspanb
 
 

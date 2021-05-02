@@ -1,14 +1,14 @@
 import pandas as pd
 #
 from pyta.indicators.average_true_range import average_true_range as atr
-from pyta.helper import max_period, min_period
+from pyta.helper import highest, lowest
 
 
 def chande_kroll_stop_long(h: pd.Series, l: pd.Series, c: pd.Series, p: int = 10, x: int = 1, q: int = 9) \
         -> pd.Series:
     _atr: pd.Series = atr(h, l, c, n=p)
-    first_low_stop: pd.Series = min_period(l, p) + x * _atr
-    stop_long: pd.Series = min_period(first_low_stop, q)
+    first_low_stop: pd.Series = lowest(l, p) + x * _atr
+    stop_long: pd.Series = lowest(first_low_stop, q)
     return stop_long
 
 
@@ -16,6 +16,6 @@ def chande_kroll_stop_long(h: pd.Series, l: pd.Series, c: pd.Series, p: int = 10
 def chande_kroll_stop_short(h: pd.Series, l: pd.Series, c: pd.Series, p: int = 10, x: int = 1, q: int = 9) \
         -> pd.Series:
     _atr: pd.Series = atr(h, l, c, n=p)
-    first_high_stop: pd.Series = max_period(h, p) - x * _atr
-    stop_short: pd.Series = max_period(first_high_stop, q)
+    first_high_stop: pd.Series = highest(h, p) - x * _atr
+    stop_short: pd.Series = highest(first_high_stop, q)
     return stop_short
