@@ -124,3 +124,82 @@ class CandlePlot(object):
 
     def show(self) -> None:
         self.fig.show()
+
+
+
+"""
+Lifted from old code.
+"""  # TODO REWRITE
+
+
+class CandlePlotOld:
+    def __init__(self, df, name_chart=None, showgrid=False):
+        self._df = df
+        date, o, h, l, c, v = df.Date, df.Open, df.High, df.Low, df.Close, df.Volume
+        # Make the base chart shape.
+        self.fig = make_subplots(rows=3, cols=1, row_heights=[0.7, 0.15, 0.15], shared_xaxes=True,
+                                 specs=[[{"secondary_y": True}], [{"secondary_y": True}], [{"secondary_y": True}]],
+                                 vertical_spacing=0.01)
+        # Adds the OHLC Candlestick
+        self.fig.add_trace(go.Candlestick(x=date, open=o, high=h, low=l, close=c, yaxis="y2", name="OHLC"), row=1,
+                           col=1)
+        # Removes the range slider
+        self.fig.update(layout_xaxis_rangeslider_visible=False)
+        # Adds the volume bar chart to bottom chart.
+        self.fig.add_trace(go.Bar(x=self._df['Date'], y=self._df['Volume'], name='Volume'), row=3, col=1)
+        # Removes weekends from data, avoids weekend gaps.
+        self.fig.update_xaxes(rangebreaks=[dict(bounds=["sat", "mon"])])
+        self.fig.update_layout(title_text=name_chart)
+        self.fig.update_xaxes(showgrid=showgrid)
+        self.fig.update_yaxes(showgrid=showgrid)
+
+    def add_overlay(self, data, line_width=1, **kwargs):
+        self.fig.add_trace(
+            go.Scatter(
+                x=self._df['Date'], y=data, yaxis="y2", line=dict(width=line_width), **kwargs),
+            row=1, col=1
+        )
+
+    def add_indicator(self, data, chart, line_width=1, **kwargs):
+        self.fig.add_trace(go.Scatter(x=self._df['Date'], y=data, yaxis="y2", line=dict(width=line_width), **kwargs),
+                           secondary_y=True, row=chart, col=1)
+
+    def add_horizontal_line(self, y, chart, **kwargs):
+        self.fig.add_trace(
+            go.Scatter(x=self._df['Date'], y=pd.Series([y] * len(self._df['Date'])), yaxis="y2", line=dict(width=1),
+                       **kwargs), secondary_y=True, row=chart, col=1)
+
+    def plot_true_vals(self, x):
+        shapes = []
+        for i in self._df[x == True]['Date']:
+            shapes.append(go.layout.Shape(type='line', yref='paper', y0=0.2, y1=0.4, xref='x', x0=i, x1=i,
+                                          line=dict(color='RoyalBlue', width=0.5)))
+        self.fig.update_layout(shapes=shapes)
+
+    def add_indicator_with_filltozero(self, data, chart, line_width=1, **kwargs):
+        self.fig.add_trace(
+            go.Scatter(x=self._df['Date'], y=data.clip(lower=0), yaxis="y2", line=dict(color='green', width=line_width),
+                       fill='tozeroy', fillcolor='rgba(0,250,0,0.4)', **kwargs), secondary_y=True, row=chart, col=1)
+
+        self.fig.add_trace(
+            go.Scatter(x=self._df['Date'], y=data.clip(upper=0), yaxis="y2", line=dict(color='red', width=line_width),
+                       fill='tozeroy', fillcolor='rgba(250,0,0,0.4)', **kwargs), secondary_y=True, row=chart, col=1)
+
+    # Its a bit rough, the arrow sizes need to scale with the price range.
+    def add_signals(self, series):
+        arrow_offset = self._df.Close.mean() * 0.2
+        for i in self._df[series == 1.0]['Date']:
+            j = self._df.loc[self._df['Date'] == i, 'High'].values[0]
+            self.fig.add_annotation(x=i, ax=i, y=j+(arrow_offset/5), ay=(j+arrow_offset),
+                                    xref='x', axref='x', yref='y', ayref='y',
+                                    showarrow=True, arrowhead=3, arrowsize=2, arrowwidth=1,
+                                    arrowcolor='green', text='buy')
+        for i in self._df[series == -1.0]['Date']:
+            j = self._df.loc[self._df['Date'] == i, 'Low'].values[0]
+            self.fig.add_annotation(x=i, ax=i, y=j-(arrow_offset/5), ay=(j-arrow_offset),
+                                    xref='x', axref='x', yref='y', ayref='y',
+                                    showarrow=True, arrowhead=3, arrowsize=2, arrowwidth=1,
+                                    arrowcolor='red', text='sell')
+
+    def show(self):
+        self.fig.show()

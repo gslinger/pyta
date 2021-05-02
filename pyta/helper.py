@@ -2,6 +2,7 @@
 Helper Functions. Mainly for internal use.
 """
 import pandas as pd
+import numpy as np
 from typing import Union
 # pyta
 from .overlays.arnaud_legoux_moving_average import arnaud_legoux_moving_average as alma
@@ -52,4 +53,21 @@ def max_period(x: pd.Series, window: int) -> pd.Series:
 
 def min_period(x: pd.Series, window: int) -> pd.Series:
     return x.rolling(window).min()
+
+
+def mean_dev(x: pd.Series, window: int) -> pd.Series:
+    return x.rolling(window).apply(lambda x: np.fabs(x - x.mean()).mean())
+
+
+def er(c: pd.Series, n: int) -> pd.Series:
+    # Change = ABS(Close - Close (n periods ago))
+    change: pd.Series = np.fabs(c.diff(n))
+    # Volatility = Sum10(ABS(Close - Prior Close))-
+    volatility: pd.Series = (np.fabs(c.diff(1))).rolling(n).sum()
+    er_: pd.Series = change / volatility
+    return er_
+
+
+def roc(c: pd.Series, n: int) -> pd.Series:
+    return (c - c.shift(n)) / c.shift(n) * 100
 

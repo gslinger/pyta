@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-def arnaud_legoux_moving_averag2(x: pd.Series, n: int = 9, offset: float = 0.85, sigma: float = 6.0) -> pd.Series:
+def arnaud_legoux_moving_average(x: pd.Series, n: int = 9, offset: float = 0.85, sigma: float = 6.0) -> pd.Series:
     # source: https://www.tradingview.com/pine-script-reference/#fun_alma
     m: float = offset * (n - 1)
     s: float = n / sigma
