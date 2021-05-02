@@ -4,11 +4,12 @@ WIP plotly CandlePlot helper class.
 
 from plotly.graph_objects import Candlestick, Bar, Scatter
 from plotly.subplots import make_subplots
-from pandas import Series, DataFrame
+import pandas as pd
+from typing import Union
 
 
 class CandlePlot(object):
-    def __init__(self, df: DataFrame, name_chart: str = 'OHLC') -> None:
+    def __init__(self, df: pd.DataFrame, name_chart: str = 'OHLC') -> None:
         # Get OHLCV data
         self.date = df['Date']
         self.o = df['Open']
@@ -78,11 +79,12 @@ class CandlePlot(object):
         self.fig.update_yaxes(showspikes=True, spikesnap="cursor", spikemode='across', spikethickness=0.3)
         self.fig.update_traces(xaxis="x1")
 
-    def add_overlay(self, x, line_width=1, chart=1, line_col=None, secondary_y=False, **kwargs) -> None:
+    def add_overlay(self, y: pd.Series, line_width: Union[float, int] = 1, chart: int = 1,
+                    line_col: str = None, secondary_y: bool = False, **kwargs) -> None:
         """ Adds an overlay onto plot. Essentially the same as add_indicator, except different defaults. """
         self.fig.add_trace(
             Scatter(
-                x=self.date, y=x,
+                x=self.date, y=y,
                 yaxis="y", xaxis="x1",
                 line=dict(width=line_width,  color=line_col),
                 **kwargs
@@ -91,11 +93,12 @@ class CandlePlot(object):
             row=chart, col=1
         )
 
-    def add_indicator(self, data, line_width=1, chart=2, line_col=None, name=None, secondary_y=False, **kwargs) -> None:
+    def add_indicator(self, y: pd.Series, line_width: Union[float, int] = 1, chart: int = 2,
+                      line_col: str = None, name: str = None, secondary_y: bool = False, **kwargs) -> None:
         """ Adds an indicator onto plot. Essentially the same as add_overlay, except different defaults. """
         self.fig.add_trace(
             Scatter(
-                x=self.date, y=data,
+                x=self.date, y=y,
                 yaxis="y", xaxis="x1",
                 line=dict(width=line_width, color=line_col),
                 name=name,
@@ -105,12 +108,12 @@ class CandlePlot(object):
             row=chart, col=1
         )
 
-    def add_horizontal_line(self, y, chart, secondary_y=True, **kwargs) -> None:
+    def add_horizontal_line(self, y: pd.Series, chart: int, secondary_y: bool = True, **kwargs) -> None:
         """ Adds a horizontal line on specified chart at Y value. """
         self.fig.add_trace(
             Scatter(
                 x=self.date,
-                y=Series([y] * len(self.c)),
+                y=pd.Series([y] * len(self.c)),
                 yaxis="y",
                 line=dict(width=1),
                 **kwargs

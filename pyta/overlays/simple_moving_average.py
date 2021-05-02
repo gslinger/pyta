@@ -1,6 +1,6 @@
-from pandas import Series
+import pandas as pd
 
 
-def simple_moving_average(x: Series, n: int = 20) -> Series:
-    sma_: Series = x.rolling(n).mean()
+def simple_moving_average(x: pd.Series, n: int = 20) -> pd.Series:
+    sma_: pd.Series = x.rolling(n).mean()
     return sma_

@@ -11,3 +11,10 @@ def timer(func):
         print("Elapsed time for {}: {}".format(func.__name__, (end_ts - beg_ts)))
         return return_value
     return wrapper
+
+
+def verify_series(series: list, length: int) -> bool:
+    for series_ in series:
+        if series_ is None or len(series_) < length:
+            return False
+    return True
