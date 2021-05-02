@@ -45,4 +45,11 @@ def tr(h: pd.Series, l: pd.Series, c: pd.Series) -> pd.Series:
     return tr_
 
 
+# todo better names
+def max_period(x: pd.Series, window: int) -> pd.Series:
+    return x.rolling(window).max()
+
+
+def min_period(x: pd.Series, window: int) -> pd.Series:
+    return x.rolling(window).min()
 
