@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def balance_of_power(o: pd.Series, h: pd.Series, l: pd.Series, c: pd.Series) -> pd.Series:
-    bop_: pd.Series = (c - o) / (h - l)
+    bop_ = (c - o) / (h - l)
     return bop_
 
 

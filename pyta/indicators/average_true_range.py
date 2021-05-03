@@ -7,7 +7,7 @@ from pyta.helper import tr
 
 
 def average_true_range(h: pd.Series, l: pd.Series, c: pd.Series, n: int = 14) -> pd.Series:
-    atr_: pd.Series = rma(tr(h, l, c), n)
+    atr_ = rma(tr(h, l, c), n)
     return atr_
 
 

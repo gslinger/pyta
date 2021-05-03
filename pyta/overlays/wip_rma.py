@@ -4,5 +4,5 @@ import pandas as pd
 
 def rma(x: pd.Series, n: int = 20) -> pd.Series:
     # source: https://www.tradingview.com/pine-script-reference/#fun_rma
-    rma_: pd.Series = x.ewm(alpha=(1 / n), min_periods=n).mean()
+    rma_ = x.ewm(alpha=(1 / n), min_periods=n).mean()
     return rma_

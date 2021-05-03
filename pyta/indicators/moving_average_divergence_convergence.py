@@ -13,5 +13,5 @@ def moving_average_convergence_divergence(c: pd.Series, fast_n: int = 12, slow_n
 
 def moving_average_convergence_divergence_signal(c: pd.Series, fast_n: int = 12, slow_n: int = 26,
                                                  macd_n: int = 9) -> pd.Series:
-    macd: pd.Series = apo(c, fast_n, slow_n)
+    macd = apo(c, fast_n, slow_n)
     return ema(macd, macd_n)

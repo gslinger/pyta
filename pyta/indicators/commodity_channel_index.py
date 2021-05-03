@@ -6,10 +6,10 @@ from pyta.helper import mean_dev
 
 
 def commodity_channel_index(h: pd.Series, l: pd.Series, c: pd.Series, n: int = 20, const: float = 0.015) -> pd.Series:
-    tp: pd.Series = (h + l + c) / 3
-    tp_sma: pd.Series = sma(tp, n)
-    tp_dev: pd.Series = mean_dev(tp, n)
-    cci: pd.Series = (tp - tp_sma) / (tp_dev * const)
+    tp = (h + l + c) / 3
+    tp_sma = sma(tp, n)
+    tp_dev = mean_dev(tp, n)
+    cci = (tp - tp_sma) / (tp_dev * const)
     return cci
 
 

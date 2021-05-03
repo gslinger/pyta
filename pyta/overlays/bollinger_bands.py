@@ -3,17 +3,17 @@ from typing import Union
 
 
 def bollinger_band_upper(price: pd.Series, n: int = 20, m: Union[int, float] = 2) -> pd.Series:
-    bb_upper: pd.Series = price.rolling(n).mean() + (price.rolling(n).std(ddof=0) * m)
+    bb_upper = price.rolling(n).mean() + (price.rolling(n).std(ddof=0) * m)
     return bb_upper
 
 
 def bollinger_band_lower(price: pd.Series, n: int = 20, m: Union[int, float] = 2) -> pd.Series:
-    bb_lower: pd.Series = price.rolling(n).mean() - (price.rolling(n).std(ddof=0) * m)
+    bb_lower = price.rolling(n).mean() - (price.rolling(n).std(ddof=0) * m)
     return bb_lower
 
 
 def bollinger_band_middle(price: pd.Series, n: int = 20) -> pd.Series:
-    bb_middle: pd.Series = price.rolling(n).mean()
+    bb_middle = price.rolling(n).mean()
     return bb_middle
 
 

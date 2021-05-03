@@ -6,10 +6,10 @@ from pyta.overlays.exponential_moving_average import exponential_moving_average 
 
 # TODO need to set up ma() properly..
 def absolute_price_oscillator(price: pd.Series, n_fast: int = 10, n_slow: int = 20, ma_type: str = 'ema', **kwargs) -> pd.Series:
-    fast_ema: pd.Series = ema(price, n_fast)
-    slow_ema: pd.Series = ema(price, n_slow)
-    apo_: pd.Series = fast_ema - slow_ema
-    return fast_ema - slow_ema
+    fast_ema = ema(price, n_fast)
+    slow_ema = ema(price, n_slow)
+    apo_ = fast_ema - slow_ema
+    return apo_
 
 
 absolute_price_oscillator.__doc__ = """Absolute Price Oscillator (APO)

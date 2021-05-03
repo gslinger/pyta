@@ -11,6 +11,6 @@ from pyta.indicators.accumulation_distribution_line import accumulation_distribu
 
 def chaikin_oscillator(h: pd.Series, l: pd.Series, c: pd.Series, v: pd.Series, n_fast: int = 3, n_slow: int = 10) \
         -> pd.Series:
-    _adl: pd.Series = adl(h, l, c, v)
-    _co: pd.Series = ema(_adl, n_fast) - ema(_adl, n_slow)
+    _adl = adl(h, l, c, v)
+    _co = ema(_adl, n_fast) - ema(_adl, n_slow)
     return _co

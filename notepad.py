@@ -7,7 +7,7 @@ from pyta.indicators.detrended_price_oscillator import detrended_price_oscillato
 from pyta.indicators.ease_of_movement import ease_of_movement as eom
 from pyta.indicators.elders_force_index import elders_force_index as efi
 from pyta.overlays.envelopes import envelopes
-from pyta.indicators.fisher_transform import fisher_transform
+from pyta.indicators.wip_fisher_transform import fisher_transform
 
 if __name__ == '__main__':
     df = pd.read_csv('pyta/data/stock1.csv')[-400:].reset_index(drop=True)

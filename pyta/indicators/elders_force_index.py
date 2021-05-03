@@ -5,5 +5,5 @@ from pyta.overlays.exponential_moving_average import exponential_moving_average 
 
 
 def elders_force_index(c: pd.Series, v: pd.Series, n: int = 13) -> pd.Series:
-    efi_: pd.Series = ema(c.diff(1) * v, n)
+    efi_ = ema(c.diff(1) * v, n)
     return efi_

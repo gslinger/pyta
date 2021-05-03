@@ -8,17 +8,17 @@ from pyta.helper import lowest, highest
 
 def chandelier_exit_long(h: pd.Series, l: pd.Series, c: pd.Series, n: int = 22, m: Union[float, int] = 3) \
         -> pd.Series:
-    period_high: pd.Series = highest(h, n)
-    atr_: pd.Series = atr(h, l, c, n)
+    period_high = highest(h, n)
+    atr_ = atr(h, l, c, n)
     c_exit_l = period_high - (atr_ * m)
     return c_exit_l
 
 
 def chandelier_exit_short(h: pd.Series, l: pd.Series, c: pd.Series, n: int = 22, m: Union[float, int] = 3) \
         -> pd.Series:
-    period_low: pd.Series = lowest(l, n)
-    atr_: pd.Series = atr(h, l, c, n)
-    c_exit_s: pd.Series = period_low + (atr_ * m)
+    period_low = lowest(l, n)
+    atr_ = atr(h, l, c, n)
+    c_exit_s = period_low + (atr_ * m)
     return c_exit_s
 
 

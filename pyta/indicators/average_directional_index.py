@@ -37,10 +37,10 @@ Returns:
 
 
 def plus_directional_indicator(h: pd.Series, l: pd.Series, c: pd.Series, n: int = 14) -> pd.Series:
-    atr_: pd.Series = atr(h, l, c, n)
-    pdm: pd.Series = pd.Series(np.where(h - h.shift(1) > l.shift(1) - l, h - h.shift(1), 0)).clip(lower=0)
-    ma: pd.Series = rma(pdm, n)
-    pdi_: pd.Series = 100 * (ma / atr_)
+    atr_ = atr(h, l, c, n)
+    pdm = pd.Series(np.where(h - h.shift(1) > l.shift(1) - l, h - h.shift(1), 0)).clip(lower=0)
+    ma = rma(pdm, n)
+    pdi_ = 100 * (ma / atr_)
     return pdi_
 
 

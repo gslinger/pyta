@@ -4,8 +4,8 @@ from pyta.helper import mfv
 
 
 def chaikin_money_flow(h: pd.Series, l: pd.Series, c: pd.Series, v: pd.Series, n: int = 20) -> pd.Series:
-    _mfv: pd.Series = mfv(h, l, c, v)
-    _cmf: pd.Series = _mfv.rolling(n).sum() / v.rolling(n).sum()
+    _mfv = mfv(h, l, c, v)
+    _cmf = _mfv.rolling(n).sum() / v.rolling(n).sum()
     return _cmf
 
 

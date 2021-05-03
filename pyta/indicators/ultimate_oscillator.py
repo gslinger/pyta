@@ -3,19 +3,19 @@ import pandas as pd
 
 def ultimate_oscillator(h: pd.Series, l: pd.Series, c: pd.Series, n_fast: int = 7, n_mid: int = 14, n_slow: int = 28,
                         w_fast: float = 4.0, w_mid: float = 2.0, w_slow: float = 1.0) -> pd.Series:
-    high: pd.Series = pd.concat([h, c.shift(1)], axis=1).max(axis=1)
-    low: pd.Series = pd.concat([l, c.shift(1)], axis=1).min(axis=1)
-    bp: pd.Series = c - low
-    tr: pd.Series = high - low
+    high = pd.concat([h, c.shift(1)], axis=1).max(axis=1)
+    low = pd.concat([l, c.shift(1)], axis=1).min(axis=1)
+    bp = c - low
+    tr = high - low
 
     def avg(n: int) -> pd.Series:
         return bp.rolling(n).sum() / tr.rolling(n).sum()
 
-    avg_fast: pd.Series = avg(n_fast)
-    avg_mid: pd.Series = avg(n_mid)
-    avg_slow: pd.Series = avg(n_slow)
+    avg_fast = avg(n_fast)
+    avg_mid = avg(n_mid)
+    avg_slow = avg(n_slow)
 
-    uo_: pd.Series = 100 * ((w_fast * avg_fast) + (w_mid * avg_mid) + (w_slow * avg_slow)) / (w_fast + w_mid + w_slow)
+    uo_ = 100 * ((w_fast * avg_fast) + (w_mid * avg_mid) + (w_slow * avg_slow)) / (w_fast + w_mid + w_slow)
 
     return uo_
 

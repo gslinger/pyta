@@ -55,8 +55,8 @@ Returns:
 def klinger_volume_oscillator_signal(h: pd.Series, l: pd.Series, c: pd.Series, v: pd.Series,
                                      n_fast: int = 34, n_slow: int = 55, n_signal: int = 13,
                                      kvo: pd.Series = None) -> pd.Series:
-    kvo_: pd.Series = klinger_volume_oscillator(h, l, c, v, n_fast, n_slow) if not kvo else kvo
-    kvo_signal: pd.Series = kvo_.ewm(alpha=2 / (n_signal + 1), min_periods=n_signal).mean()
+    kvo_ = klinger_volume_oscillator(h, l, c, v, n_fast, n_slow) if not kvo else kvo
+    kvo_signal = kvo_.ewm(alpha=2 / (n_signal + 1), min_periods=n_signal).mean()
     return kvo_signal
 
 

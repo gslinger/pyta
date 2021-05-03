@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def aroon_down(l: pd.Series, n: int = 14) -> pd.Series:
-    a_down: pd.Series = l.rolling(n + 1).apply(lambda x: 100 * x.tolist().index(min(x)) / float(n))
+    a_down = l.rolling(n + 1).apply(lambda x: 100 * x.tolist().index(min(x)) / float(n))
     return a_down
 
 

@@ -4,8 +4,8 @@ from pyta.helper import mfv
 
 
 def accumulation_distribution_line(h: pd.Series, l: pd.Series, c: pd.Series, v: pd.Series):
-    mfv_: pd.Series = mfv(h, l, c, v)
-    adl_: pd.Series = mfv_.cumsum()
+    mfv_ = mfv(h, l, c, v)
+    adl_ = mfv_.cumsum()
     return adl_
 
 

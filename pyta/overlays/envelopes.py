@@ -5,9 +5,9 @@ from pyta.helper import ma
 
 
 def envelopes(price: pd.Series, n: int = 20, percent: float = 0.1) -> pd.DataFrame:
-    basis: pd.Series = ma(price, 'ema', n=n)
-    upper: pd.Series = basis * (1 + percent)
-    lower: pd.Series = basis * (1 - percent)
+    basis = ma(price, 'ema', n=n)
+    upper = basis * (1 + percent)
+    lower = basis * (1 - percent)
 
     basis.name = f'Env_Basis({n}, {percent})'
     upper.name = f'Env_Upper({n}, {percent})'

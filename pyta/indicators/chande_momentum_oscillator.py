@@ -5,12 +5,12 @@ import pandas as pd
 
 
 def chande_momentum_oscillator(c: pd.Series, n: int = 9) -> pd.Series:
-    mom: pd.Series = c.diff(1)
-    pos_mom: pd.Series = pd.Series(np.where(mom >= 0.0, mom, 0.0))
-    neg_mom: pd.Series = pd.Series(np.where(mom >= 0.0, 0.0, -mom))
-    pos_sum: pd.Series = pos_mom.rolling(n).sum()
-    neg_sum: pd.Series = neg_mom.rolling(n).sum()
-    _cmo: pd.Series = 100 * ((pos_sum - neg_sum) / (pos_sum + neg_sum))
+    mom = c.diff(1)
+    pos_mom = pd.Series(np.where(mom >= 0.0, mom, 0.0))
+    neg_mom = pd.Series(np.where(mom >= 0.0, 0.0, -mom))
+    pos_sum = pos_mom.rolling(n).sum()
+    neg_sum = neg_mom.rolling(n).sum()
+    _cmo = 100 * ((pos_sum - neg_sum) / (pos_sum + neg_sum))
     return _cmo
 
 

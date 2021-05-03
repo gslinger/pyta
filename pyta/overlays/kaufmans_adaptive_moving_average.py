@@ -5,12 +5,12 @@ from pyta.helper import er
 
 
 def kaufmans_adaptive_moving_average(c: pd.Series, n: int = 10, n_fast: int = 2, n_slow: int = 30) -> pd.Series:
-    er_: pd.Series = er(c, n)
+    er_ = er(c, n)
     # SC = [ER x (2/(2+1) - 2/(30+1)) + 2/(30+1)]2
     fast_ema: float = 2 / (n_fast + 1)
     slow_ema: float = 2 / (n_slow + 1)
-    sc: pd.Series = (er_ * (fast_ema - slow_ema) + slow_ema) ** 2
-    kama: pd.Series = pd.Series([np.nan] * (len(c) - 1))
+    sc = (er_ * (fast_ema - slow_ema) + slow_ema) ** 2
+    kama = pd.Series([np.nan] * (len(c) - 1))
     # First kama entry is close price.
     kama[n - 1] = c[n - 1]
     # KAMA = Prior KAMA + SC x (Price - Prior KAMA)

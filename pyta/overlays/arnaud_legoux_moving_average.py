@@ -8,9 +8,9 @@ def arnaud_legoux_moving_average(x: pd.Series, n: int = 9, offset: float = 0.85,
     s: float = n / sigma
     length: int = len(x)
 
-    alma_: pd.Series = pd.Series([np.nan] * length)
-    norm: pd.Series = pd.Series([0.0] * length)
-    sum_: pd.Series = norm.copy()
+    alma_ = pd.Series([np.nan] * length)
+    norm = pd.Series([0.0] * length)
+    sum_ = norm.copy()
 
     for i in range(n, length):
         for j in range(n - 1):
